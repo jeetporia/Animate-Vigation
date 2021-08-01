@@ -6,6 +6,15 @@ const nav3 = document.getElementById('nav-3');
 const nav4 = document.getElementById('nav-4');
 const nav5 = document.getElementById('nav-5');
 
+const navItem = [nav1, nav2, nav3, nav4, nav5];
+
+// Control Navigation Animation
+function navAnimation(animation1 , animation2) {
+    navItem.forEach((nav,i) => {
+        nav.classList.replace(`slide-${animation1}-${i +1 }`, `slide-${animation2}-${i + 1}`);
+    })
+}
+
 function toggleNav() {
     // Toggle Menu bar Open/closed
     menuBars.classList.toggle('change');
@@ -13,49 +22,18 @@ function toggleNav() {
     overlay.classList.toggle('overlay-active');
     if(overlay.classList.contains('overlay-active')) {
         // Animate in overlay
-        overlay.classList.add('overlay-slide-right');
-        overlay.classList.remove('overlay-slide-left');
+        overlay.classList.replace('overlay-slide-left', 'overlay-slide-right')
         // Animate in Nav Items
-        nav1.classList.remove('slide-out-1');
-        nav1.classList.add('slide-in-1');
+        navAnimation('out','in');
 
-        nav2.classList.remove('slide-out-2');
-        nav2.classList.add('slide-in-2');
-
-        nav3.classList.remove('slide-out-3');
-        nav3.classList.add('slide-in-3');
-
-        nav4.classList.remove('slide-out-4');
-        nav4.classList.add('slide-in-4');
-
-        nav5.classList.remove('slide-out-5');
-        nav5.classList.add('slide-in-5');
     } else {
         // Animate out overlay
-        overlay.classList.add('overlay-slide-left');
-        overlay.classList.remove('overlay-slide-right');
-
-        nav1.classList.remove('slide-in-1');
-        nav1.classList.add('slide-out-1');
-
-        nav2.classList.remove('slide-in-2');
-        nav2.classList.add('slide-out-2');
-
-        nav3.classList.remove('slide-in-3');
-        nav3.classList.add('slide-out-3');
-
-        nav4.classList.remove('slide-in-4');
-        nav4.classList.add('slide-out-4');
-
-        nav5.classList.remove('slide-in-5');
-        nav5.classList.add('slide-out-5');
+        overlay.classList.replace('overlay-slide-right', 'overlay-slide-left');
+        navAnimation('in', 'out')
     }
 }   
-
 // Event Listeners
 menuBars.addEventListener('click', toggleNav);
-nav1.addEventListener('click', toggleNav);
-nav2.addEventListener('click', toggleNav);
-nav3.addEventListener('click', toggleNav);
-nav4.addEventListener('click', toggleNav);
-nav5.addEventListener('click', toggleNav);
+navItem.forEach((nav) => {
+    nav.addEventListener('click', toggleNav)
+})
